@@ -4,9 +4,13 @@ An extractive text summarization system built using Python, NLP, TF-IDF, FastAPI
 
 The system identifies important sentences from an input document using TF-IDF-based sentence scoring and generates a configurable-length extractive summary.
 
+## Live Demo
+
+🚀 **[Try the Text Summarization System](https://text-summarization-system.streamlit.app/)**
+
 ## Features
 
-* TF-IDF based extractive summarization
+* TF-IDF-based extractive summarization
 * Configurable summary length
 * English stopword removal
 * FastAPI REST API
@@ -33,7 +37,7 @@ The summarization pipeline follows these steps:
 7. The selected sentences are restored to their original document order.
 8. The resulting sentences form the final extractive summary.
 
-## TF-IDF Based Sentence Scoring
+## TF-IDF-Based Sentence Scoring
 
 TF-IDF (Term Frequency-Inverse Document Frequency) is used to represent the importance of words within the input document.
 
@@ -43,20 +47,24 @@ Higher-scoring sentences are considered more relevant according to the TF-IDF re
 
 ## Architecture
 
-![Architecture](architecture.png)
+The project contains two main components:
 
-The application consists of two main components:
+* **Streamlit frontend** — provides the user interface and runs the summarization workflow in the deployed application.
+* **FastAPI backend** — provides a REST API for programmatic access to the summarization system.
 
-* **Streamlit frontend** — provides the user interface.
-* **FastAPI backend** — exposes the summarization API and processes requests using the TF-IDF summarizer.
+The deployed Streamlit application currently runs the summarization function directly. The FastAPI backend is included for API-based usage and future deployment.
 
-The frontend sends the input text and requested summary length to the FastAPI backend through a POST request.
+### Architecture Diagram
+
+![Architecture Diagram](architecture.png)
 
 ## API
 
 ### POST `/summarize`
 
-Example request:
+The FastAPI backend exposes a `/summarize` endpoint.
+
+#### Example Request
 
 ```json
 {
@@ -65,7 +73,7 @@ Example request:
 }
 ```
 
-Example response:
+#### Example Response
 
 ```json
 {
@@ -90,7 +98,6 @@ text-summarization-system/
 │   ├── test_summarize.py
 │   └── test_api.py
 │
-│
 ├── architecture.png
 ├── pytest.ini
 ├── requirements.txt
@@ -100,26 +107,28 @@ text-summarization-system/
 
 ## Installation
 
-Clone the repository:
+### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
-cd text-summarization-system
+git clone https://github.com/Sharon1004/text-summarization.git
+cd text-summarization
 ```
 
-Create a virtual environment:
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate it on Windows:
+### 3. Activate the Virtual Environment
+
+On Windows:
 
 ```bash
 venv\Scripts\activate
 ```
 
-Install the dependencies:
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -127,19 +136,21 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-Start the FastAPI backend:
+### Start the FastAPI Backend
 
 ```bash
 uvicorn backend.main:app --reload
 ```
 
-In another terminal, start the Streamlit frontend:
+### Start the Streamlit Frontend
+
+Open another terminal and run:
 
 ```bash
 streamlit run frontend/app.py
 ```
 
-Open the Streamlit URL shown in the terminal.
+The Streamlit application will open in your browser using the local URL displayed in the terminal.
 
 ## Running Tests
 
@@ -150,7 +161,6 @@ pytest
 ```
 
 The tests cover core summarization behavior and API validation.
-
 
 ## Limitations
 
