@@ -4,6 +4,9 @@ from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+nltk.download("punkt_tab", quiet=True)
+nltk.download("stopwords", quiet=True)
+
 def summarize_text(text,summary_length):
     
     #Convert given paragraph into tokens of sentences
