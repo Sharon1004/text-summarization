@@ -1,6 +1,11 @@
-import requests
+# import requests
 import streamlit as st
+import sys
+import os
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from backend.summarizer import summarize_text
 
 st.title("Text Summarization System")
 st.caption(
@@ -19,17 +24,19 @@ if st.button("Generate Summary"):
     if not text:
         st.error("Please enter some text first.")
     else:
-        try:
-            response=requests.post("http://127.0.0.1:8000/summarize",json={
-                "text":text,"summary_length":summary_length
-                },
-                timeout=10
-            )
+        # try:
+            # response=requests.post("http://127.0.0.1:8000/summarize",json={
+            #     "text":text,"summary_length":summary_length
+            #     },
+            #     timeout=10
+            # )
 
-            response.raise_for_status()
+            # response.raise_for_status()
 
-            result=response.json()
-            summary=result["summary"]
+            # result=response.json()
+            # summary=result["summary"]
+
+            summary = summarize_text(text, summary_length)
         
             st.subheader("Summary:")
             st.write(summary)
@@ -54,16 +61,16 @@ if st.button("Generate Summary"):
         
             st.download_button(
                 label="Download Summary",
-                data=result["summary"],
+                data=summary,
                 file_name="summary.txt",
                 mime="text/plain")
         
-        except requests.exceptions.ConnectionError:
-            st.error("Could not connect to the API.")  
-        except requests.exceptions.Timeout:
-            st.error("The request took too long. Please try again later.")
-        except requests.exceptions.RequestException as e:
-            st.error(f"API request failed: {e}")
+        # except requests.exceptions.ConnectionError:
+        #     st.error("Could not connect to the API.")  
+        # except requests.exceptions.Timeout:
+        #     st.error("The request took too long. Please try again later.")
+        # except requests.exceptions.RequestException as e:
+        #     st.error(f"API request failed: {e}")
 
 
     
