@@ -1,11 +1,18 @@
+import os
 import nltk
 import numpy as np
+
+NLTK_DATA = os.path.join(os.path.dirname(__file__), "nltk_data")
+os.makedirs(NLTK_DATA, exist_ok=True)
+
+nltk.data.path.append(NLTK_DATA)
+
+nltk.download("punkt_tab", download_dir=NLTK_DATA, quiet=True)
+nltk.download("stopwords", download_dir=NLTK_DATA, quiet=True)
+
 from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-nltk.download("punkt_tab", quiet=True)
-nltk.download("stopwords", quiet=True)
 
 def summarize_text(text,summary_length):
     
